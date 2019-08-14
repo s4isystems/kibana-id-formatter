@@ -2,8 +2,6 @@
 import { fieldFormats } from 'ui/registry/field_formats';
 import $ from 'jquery';
 
-// declare const $: any
-
 /** Shamelessly stolen from:
  * https://stackoverflow.com/a/901144
  */
