@@ -19,7 +19,6 @@ export function SearchNameProvider(FieldFormat) {
             }
         }, 
         error: function(error) {
-            // alert("Cannot get searches");
             console.log(error);
         }
     });
@@ -33,8 +32,9 @@ export function SearchNameProvider(FieldFormat) {
         ];
 
         _convert(value) {
-            if (searchIdMap.has(value)) {
-                return searchIdMap.get(parseInt(value));
+            let intValue = parseInt(value);
+            if (searchIdMap.has(intValue)) {
+                return searchIdMap.get(parseInt(intValue));
             } else {
                 return 'New Search (' + value + ')'
             }

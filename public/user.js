@@ -19,7 +19,6 @@ export function UserNameProvider(FieldFormat) {
             }
         }, 
         error: function(error) {
-            // alert("Cannot get users");
             console.log(error);
         }
     });
@@ -33,8 +32,9 @@ export function UserNameProvider(FieldFormat) {
         ];
 
         _convert(value) {
-            if (userIdMap.has(value)) {
-                return userIdMap.get(parseInt(value));
+            let intValue = parseInt(value);
+            if (userIdMap.has(intValue)) {
+                return userIdMap.get(parseInt(intValue));
             } else {
                 return 'New User (' + value + ')'
             }

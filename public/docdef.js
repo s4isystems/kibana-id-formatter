@@ -18,7 +18,6 @@ export function DocDefNameProvider(FieldFormat) {
 
     const docdefIdMap = new Map();
     let ngParams = getParameterByName('ng-url');
-    console.log(ngParams);
     $.ajax({
         type: 'GET',
         url: ngParams + '/api/definitions',
@@ -32,7 +31,6 @@ export function DocDefNameProvider(FieldFormat) {
             }
         }, 
         error: function(error) {
-            // alert("Cannot get document definitions");
             console.log(error);
         }
     });
@@ -46,8 +44,9 @@ export function DocDefNameProvider(FieldFormat) {
         ];
 
         _convert(value) {
-            if (docdefIdMap.has(value)) {
-                return docdefIdMap.get(parseInt(value));
+            let intValue = parseInt(value);
+            if (docdefIdMap.has(intValue)) {
+                return docdefIdMap.get(intValue);
             } else {
                 return 'New Document Definition (' + value + ')'
             }
