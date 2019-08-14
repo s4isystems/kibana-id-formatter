@@ -1,6 +1,9 @@
 ---
 extends: "@elastic/kibana"
 
+rules:
+  indent: ["error", 4]
+
 settings:
   import/resolver:
     '@elastic/eslint-import-resolver-kibana':
