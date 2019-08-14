@@ -1,4 +1,4 @@
-# s4i_zs_field_formatter
+# s4i_id_field_formatter
 
 > Testing field formatters
 
