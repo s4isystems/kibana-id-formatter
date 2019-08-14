@@ -32,7 +32,7 @@ export function SearchNameProvider(FieldFormat: any) {
             'number'
         ];
 
-        _convert(value: string) {
+        _convert(value: any) {
             const intValue = parseInt(value);
             if (searchIdMap.has(intValue)) {
                 return searchIdMap.get(intValue);

@@ -46,7 +46,7 @@ export function DocDefNameProvider(FieldFormat: any) {
             'number'
         ];
 
-        _convert(value: string) {
+        _convert(value: any) {
             const intValue = parseInt(value);
             if (docdefIdMap.has(intValue)) {
                 return docdefIdMap.get(intValue);
