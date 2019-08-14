@@ -9,7 +9,7 @@ export function UserNameProvider(FieldFormat) {
     $.ajax({
         type: 'GET',
         url: ngParams + '/api/definitions/users',
-        accept: 'application/json',
+        accepts: { dataType: 'application/json' },
         xhrFields: {
             withCredentials: true
         },
@@ -17,7 +17,7 @@ export function UserNameProvider(FieldFormat) {
             for (let user of result) {
                 userIdMap.set(user.id, user.hasOwnProperty('name') ? user.name : 'New User (' + user.id + ')');
             }
-        }, 
+        },
         error: function(error) {
             console.log(error);
         }

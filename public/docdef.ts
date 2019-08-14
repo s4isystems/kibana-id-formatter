@@ -24,7 +24,7 @@ export function DocDefNameProvider(FieldFormat: any) {
     $.ajax({
         type: 'GET',
         url: ngParams + '/api/definitions',
-        // accepts: 'application/json',
+        accepts: { json: 'application/json' },
         xhrFields: {
             withCredentials: true
         },
