@@ -1,11 +1,12 @@
-import _ from 'lodash';
+// @ts-ignore
 import { fieldFormats } from 'ui/registry/field_formats';
 import { getParameterByName } from './docdef';
+import $ from 'jquery';
 
-export function UserNameProvider(FieldFormat) {
+export function UserNameProvider(FieldFormat: any) {
 
     const userIdMap = new Map();
-    let ngParams = getParameterByName('ng-url');
+    const ngParams = getParameterByName('ng-url');
     $.ajax({
         type: 'GET',
         url: ngParams + '/api/definitions/users',
@@ -13,12 +14,12 @@ export function UserNameProvider(FieldFormat) {
         xhrFields: {
             withCredentials: true
         },
-        success: function(result) {
-            for (let user of result) {
+        success: function (result) {
+            for (const user of result) {
                 userIdMap.set(user.id, user.hasOwnProperty('name') ? user.name : 'New User (' + user.id + ')');
             }
         },
-        error: function(error) {
+        error: function (error) {
             console.log(error);
         }
     });
@@ -31,14 +32,14 @@ export function UserNameProvider(FieldFormat) {
             'number'
         ];
 
-        _convert(value) {
-            let intValue = parseInt(value);
+        _convert(value: any) {
+            const intValue = parseInt(value);
             if (userIdMap.has(intValue)) {
-                return userIdMap.get(parseInt(intValue));
+                return userIdMap.get(intValue);
             } else {
-                return 'New User (' + value + ')'
+                return 'New User (' + value + ')';
             }
         }
-    }
+    };
 }
 fieldFormats.register(UserNameProvider)
