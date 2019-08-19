@@ -8,8 +8,8 @@
 
     // tell the TypeScript compiler where to find your source files
     "include": [
-      "server/**/*",
-      "public/**/*",
+      "server/**/*.ts",
+      "public/**/*.ts",
       "index.ts"
     ]
 }
