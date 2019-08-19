@@ -1,4 +1,4 @@
-# S4i-NG II Field Formatter
+# S4i-NG ID Field Formatter
 
 This is a plugin for Kibana 6.5.3, intended to be used in conjunction with S4i's S4i-NG product. 
 
