@@ -1,6 +1,8 @@
-# s4i_id_field_formatter
+# S4i-NG II Field Formatter
 
-> Testing field formatters
+This is a plugin for Kibana 6.5.3, intended to be used in conjunction with S4i's S4i-NG product. 
+
+The plugin retrieves the names of document definitions, searches, and users from the S4i-NG back end and correlates them with the IDs stored in Kibana. The end result is that the Kibana visualizations can be formatted to use the user-friendly display names, rather than IDs. 
 
 ---
 
