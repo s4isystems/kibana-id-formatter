@@ -1,4 +1,4 @@
-export default function (kibana: any) {
+export default function (kibana) {
     return new kibana.Plugin({
         require: ['elasticsearch', 'kibana'],
         name: 's4i_id_field_formatter',
@@ -10,7 +10,7 @@ export default function (kibana: any) {
             ]
         },
 
-        config(Joi: any) {
+        config(Joi) {
             return Joi.object({
                 enabled: Joi.boolean().default(true),
             }).default();
