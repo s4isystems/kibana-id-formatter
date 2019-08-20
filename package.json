@@ -1,6 +1,6 @@
 {
   "name": "kibana-s4i-ng-plugin",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Plugin to make use of information available in S4i-NG",
   "main": "index.js",
   "kibana": {
