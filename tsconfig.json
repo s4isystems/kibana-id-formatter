@@ -3,13 +3,13 @@
     "extends": "../../kibana/tsconfig.json",
 
   "compilerOptions": {
-    "lib": ["dom", "es2015"]
+    "lib": ["dom", "es2015"],
+    "noEmit": true
   },
 
-    // tell the TypeScript compiler where to find your source files
-    "include": [
-      "server/**/*.ts",
-      "public/**/*.ts",
-      "index.ts"
-    ]
+  // tell the TypeScript compiler where to find your source files
+  "include": [
+    "server/**/*.ts",
+    "public/**/*.ts"
+  ]
 }
