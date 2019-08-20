@@ -1,7 +1,7 @@
 {
   "name": "kibana-s4i-ng-plugin",
   "version": "0.0.22",
-  "description": "Testing field formatters",
+  "description": "Plugin to make use of information available in S4i-NG",
   "main": "index.js",
   "kibana": {
     "version": "6.7.0",
