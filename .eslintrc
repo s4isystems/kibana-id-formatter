@@ -7,4 +7,4 @@ rules:
 settings:
   import/resolver:
     '@elastic/eslint-import-resolver-kibana':
-      rootPackageName: 's4i_id_field_formatter'
+      rootPackageName: 'kibana-s4i-ng-plugin'

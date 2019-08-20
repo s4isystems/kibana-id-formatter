@@ -1,12 +1,12 @@
 export default function (kibana) {
     return new kibana.Plugin({
         require: ['elasticsearch', 'kibana'],
-        name: 's4i_id_field_formatter',
+        name: 'kibana-s4i-ng-plugin',
         uiExports: {
             fieldFormats: [
-                'plugins/s4i_id_field_formatter/docdef',
-                'plugins/s4i_id_field_formatter/user',
-                'plugins/s4i_id_field_formatter/search'
+                'plugins/kibana-s4i-ng-plugin/docdef',
+                'plugins/kibana-s4i-ng-plugin/user',
+                'plugins/kibana-s4i-ng-plugin/search'
             ]
         },
 
