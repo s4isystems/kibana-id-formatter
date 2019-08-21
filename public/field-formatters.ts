@@ -34,9 +34,12 @@ class NGAPI {
                 withCredentials: true
             }
         };
-        const docDefs: Definition[] = await $.ajax(baseUrl + '/api/definitions', ajaxSettings);
-        const users: Definition[] = await $.ajax(baseUrl + '/api/definitions/users', ajaxSettings);
-        const filters: Definition[] = await $.ajax(baseUrl + '/api/filters', ajaxSettings);
+
+        const [ docDefs, users, filters ] = await Promise.all([
+            $.ajax(baseUrl + '/api/definitions', ajaxSettings),
+            $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
+            $.ajax(baseUrl + '/api/filters', ajaxSettings)
+        ]);
 
         this.definitions = { docDefs, filters, users };
     }
