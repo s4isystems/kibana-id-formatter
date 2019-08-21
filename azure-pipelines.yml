@@ -1,0 +1,109 @@
+trigger:
+- 6.5
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+strategy:
+  matrix:
+    kibana_6_5_3:
+      kibana_version: 6.5.3
+      node_version: 8.14.0
+
+variables:
+   build_version: $(kibana_version)-$(Build.BuildNumber)
+
+# https://www.elastic.co/guide/en/kibana/6.7/development-plugin-resources.html
+# The Kibana directory must be named kibana, and your plugin directory must be
+# located within the sibling kibana-extra folder, for example:
+# .
+# ├── kibana
+# ├── kibana-extra/foo-plugin
+# └── kibana-extra/bar-plugin
+
+steps:
+- checkout: self
+  path: kibana-extra/kibana-s4i-ng-plugin
+
+- task: NodeTool@0
+  displayName: 'Install Node.js'
+  inputs:
+    versionSpec: '$(node_version)'
+
+- task: YarnInstaller@3
+  displayName: 'Install Yarn'
+  inputs:
+    versionSpec: '1.x'
+
+- task: DockerInstaller@0
+  displayName: 'Install Docker'
+  inputs:
+    dockerVersion: '19.03.1'
+
+- task: CmdLine@2
+  displayName: 'Clone Kibana'
+  inputs:
+    script: 'git clone --depth 1 --branch v$(kibana_version) https://github.com/elastic/kibana.git $(Pipeline.Workspace)/kibana'
+
+- task: Yarn@3
+  displayName: 'Kibana bootstrap'
+  inputs:
+    arguments: 'run kbn bootstrap'
+
+- task: Bower@0
+  displayName: 'Install bower dependencies'
+  inputs:
+    command: 'install'
+    bowerjson: 'bower.json'
+
+- task: Yarn@3
+  displayName: 'Set plugin version'
+  inputs:
+    arguments: 'version --new-version $(build_version) --no-git-tag-version'
+
+- task: CmdLine@2
+  displayName: 'Set Kibana version'
+  inputs:
+    script: mv package.json package.json.bak && jq '.kibana.version = "$(kibana_version)"' package.json.bak > package.json
+
+- task: Yarn@3
+  displayName: 'Build plugin'
+  inputs:
+    arguments: 'run build'
+
+- task: Docker@2
+  displayName: 'Test plugin installation'
+  inputs:
+    command: 'build'
+    arguments: |
+      --build-arg KIBANA_VERSION=$(kibana_version)
+      --build-arg PLUGIN_VERSION=$(build_version)
+
+- task: CopyFiles@2
+  displayName: 'Copy build artifacts'
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)/build'
+    contents: '*.zip'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: GitHubRelease@0
+  displayName: 'Publish master'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    gitHubConnection: 'GitHub release'
+    repositoryName: '$(Build.Repository.Name)'
+    isPreRelease: true
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'manual'
+    title: '$(build_version) (for Kibana $(kibana_version))'
+    tag: '$(build_version)'
+    compareWith: 'lastFullRelease'
+    assets: '$(Build.ArtifactStagingDirectory)/*.zip'
