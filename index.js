@@ -7,6 +7,9 @@ export default function (kibana) {
                 'plugins/kibana-s4i-ng-plugin/docdef',
                 'plugins/kibana-s4i-ng-plugin/user',
                 'plugins/kibana-s4i-ng-plugin/search'
+            ],
+            hacks: [
+                'plugins/kibana-s4i-ng-plugin/init-hack'
             ]
         },
 
