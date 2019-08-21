@@ -50,12 +50,6 @@ steps:
   inputs:
     arguments: 'run kbn bootstrap'
 
-- task: Bower@0
-  displayName: 'Install bower dependencies'
-  inputs:
-    command: 'install'
-    bowerjson: 'bower.json'
-
 - task: Yarn@3
   displayName: 'Set plugin version'
   inputs:
