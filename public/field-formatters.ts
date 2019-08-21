@@ -24,24 +24,31 @@ class NGAPI {
     private definitions!: Record<DefinitionType, Definition[]>;
 
     async init(): Promise<void> {
-        const baseUrl = getParameterByName('ng-url');
-        const ajaxSettings: JQuery.AjaxSettings = {
-            type: 'GET',
-            dataType: 'json',
-
-            accepts: { json: 'application/json' },
-            xhrFields: {
-                withCredentials: true
+        try {
+            const baseUrl = getParameterByName('ng-url');
+            if (!baseUrl) {
+                throw new Error('No base URL provided');
             }
-        };
+            const ajaxSettings: JQuery.AjaxSettings = {
+                type: 'GET',
+                dataType: 'json',
 
-        const [ docDefs, users, filters ] = await Promise.all([
-            $.ajax(baseUrl + '/api/definitions', ajaxSettings),
-            $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
-            $.ajax(baseUrl + '/api/filters', ajaxSettings)
-        ]);
+                accepts: { json: 'application/json' },
+                xhrFields: {
+                    withCredentials: true
+                }
+            };
 
-        this.definitions = { docDefs, filters, users };
+            const [docDefs, users, filters] = await Promise.all([
+                $.ajax(baseUrl + '/api/definitions', ajaxSettings),
+                $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
+                $.ajax(baseUrl + '/api/filters', ajaxSettings)
+            ]);
+
+            this.definitions = {docDefs, filters, users};
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     convert(type: DefinitionType, value: string | number): string | undefined {
