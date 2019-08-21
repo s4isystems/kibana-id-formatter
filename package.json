@@ -4,7 +4,7 @@
   "description": "Plugin to make use of information available in S4i-NG",
   "main": "index.js",
   "kibana": {
-    "version": "6.7.0",
+    "version": "kibana",
     "templateVersion": "1.0.0"
   },
   "scripts": {
