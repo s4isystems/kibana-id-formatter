@@ -1,6 +1,6 @@
 // @ts-ignore
 import { fieldFormats } from 'ui/registry/field_formats';
-import { ngApi } from "./field-formatters";
+import { ngApi } from './field-formatters';
 
 export function DocDefNameProvider(FieldFormat: any) {
     return class DocDefName extends FieldFormat {

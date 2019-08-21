@@ -1,5 +1,5 @@
 import uiRoutes from 'ui/routes';
-import { ngApi } from "./field-formatters";
+import { ngApi } from './field-formatters';
 
 async function setupS4iNGPlugin() {
     await ngApi.init();
