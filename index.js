@@ -7,6 +7,9 @@ export default function (kibana) {
                 'plugins/s4i_id_field_formatter/docdef',
                 'plugins/s4i_id_field_formatter/user',
                 'plugins/s4i_id_field_formatter/search'
+            ],
+            hacks: [
+                'plugins/s4i_id_field_formatter/init-hack'
             ]
         },
 
