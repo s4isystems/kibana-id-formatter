@@ -99,7 +99,6 @@ steps:
   inputs:
     gitHubConnection: 'GitHub release'
     repositoryName: '$(Build.Repository.Name)'
-    isPreRelease: true
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'manual'
