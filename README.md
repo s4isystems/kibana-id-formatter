@@ -1,5 +1,7 @@
 # kibana-s4i-ng-plugin
 
+[![Build Status](https://dev.azure.com/s4isystems/kibana-s4i-ng-plugin/_apis/build/status/s4isystems.kibana-s4i-ng-plugin?branchName=master)](https://dev.azure.com/s4isystems/kibana-s4i-ng-plugin/_build/latest?definitionId=3&branchName=master)
+
 This is a plugin for Kibana 6.5.3, intended to be used in conjunction with S4i's S4i-NG product. 
 
 The plugin retrieves the names of document definitions, searches, and users from the S4i-NG back end and correlates them with the IDs stored in Kibana. The end result is that the Kibana visualizations can be formatted to use the user-friendly display names, rather than IDs. 
