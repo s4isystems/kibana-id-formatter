@@ -2,7 +2,11 @@ import uiRoutes from 'ui/routes';
 import { ngApi } from './field-formatters';
 
 async function setupS4iNGPlugin() {
-    await ngApi.init();
+    try {
+        await ngApi.init();
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 // @ts-ignore

@@ -24,31 +24,27 @@ class NGAPI {
     private definitions!: Record<DefinitionType, Definition[]>;
 
     async init(): Promise<void> {
-        try {
-            const baseUrl = getParameterByName('ng-url');
-            if (!baseUrl) {
-                throw new Error('No base URL provided');
-            }
-            const ajaxSettings: JQuery.AjaxSettings = {
-                type: 'GET',
-                dataType: 'json',
-
-                accepts: { json: 'application/json' },
-                xhrFields: {
-                    withCredentials: true
-                }
-            };
-
-            const [docDefs, users, filters] = await Promise.all([
-                $.ajax(baseUrl + '/api/definitions', ajaxSettings),
-                $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
-                $.ajax(baseUrl + '/api/filters', ajaxSettings)
-            ]);
-
-            this.definitions = {docDefs, filters, users};
-        } catch(error) {
-            console.log(error);
+        const baseUrl = getParameterByName('ng-url');
+        if (!baseUrl) {
+            throw new Error('No base URL provided');
         }
+        const ajaxSettings: JQuery.AjaxSettings = {
+            type: 'GET',
+            dataType: 'json',
+
+            accepts: { json: 'application/json' },
+            xhrFields: {
+                withCredentials: true
+            }
+        };
+
+        const [docDefs, users, filters] = await Promise.all([
+            $.ajax(baseUrl + '/api/definitions', ajaxSettings),
+            $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
+            $.ajax(baseUrl + '/api/filters', ajaxSettings)
+        ]);
+
+        this.definitions = {docDefs, filters, users};
     }
 
     convert(type: DefinitionType, value: string | number): string | undefined {
