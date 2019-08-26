@@ -21,7 +21,7 @@ interface Definition {
 type DefinitionType = 'docDefs' | 'filters' | 'users';
 
 class NGAPI {
-    private definitions!: Record<DefinitionType, Definition[]>;
+    private definitions?: Record<DefinitionType, Definition[]>;
 
     async init(): Promise<void> {
         const baseUrl = getParameterByName('ng-url');
@@ -48,6 +48,10 @@ class NGAPI {
     }
 
     convert(type: DefinitionType, value: string | number): string | undefined {
+        if (!this.definitions) {
+            // not initialized
+            return;
+        }
         const intValue = typeof value === 'string' ? parseInt(value) : value;
         const definition = this.definitions[type].find(d => d.id === intValue);
         return definition && definition.name;
