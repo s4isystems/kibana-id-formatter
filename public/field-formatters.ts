@@ -21,10 +21,13 @@ interface Definition {
 type DefinitionType = 'docDefs' | 'filters' | 'users';
 
 class NGAPI {
-    private definitions!: Record<DefinitionType, Definition[]>;
+    private definitions?: Record<DefinitionType, Definition[]>;
 
     async init(): Promise<void> {
         const baseUrl = getParameterByName('ng-url');
+        if (!baseUrl) {
+            throw new Error('No base URL provided');
+        }
         const ajaxSettings: JQuery.AjaxSettings = {
             type: 'GET',
             dataType: 'json',
@@ -35,16 +38,20 @@ class NGAPI {
             }
         };
 
-        const [ docDefs, users, filters ] = await Promise.all([
+        const [docDefs, users, filters] = await Promise.all([
             $.ajax(baseUrl + '/api/definitions', ajaxSettings),
             $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
             $.ajax(baseUrl + '/api/filters', ajaxSettings)
         ]);
 
-        this.definitions = { docDefs, filters, users };
+        this.definitions = {docDefs, filters, users};
     }
 
     convert(type: DefinitionType, value: string | number): string | undefined {
+        if (!this.definitions) {
+            // not initialized
+            return;
+        }
         const intValue = typeof value === 'string' ? parseInt(value) : value;
         const definition = this.definitions[type].find(d => d.id === intValue);
         return definition && definition.name;
