@@ -1,3 +1,4 @@
+// @ts-ignore
 import uiRoutes from 'ui/routes';
 import { ngApi } from './field-formatters';
 

@@ -3,7 +3,12 @@
     "extends": "../../kibana/tsconfig.json",
 
   "compilerOptions": {
-    "lib": ["dom", "es2015"]
+    "lib": ["dom", "es2015"],
+    "baseUrl": ".",
+    "strict": true,
+    "paths": {
+      "plugins/kibana-s4i-ng-plugin/*": [ "public/*" ]
+    }
   },
 
   // tell the TypeScript compiler where to find your source files
