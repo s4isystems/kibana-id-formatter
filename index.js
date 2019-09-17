@@ -9,7 +9,8 @@ export default function (kibana) {
                 'plugins/kibana-s4i-ng-plugin/search'
             ],
             hacks: [
-                'plugins/kibana-s4i-ng-plugin/init-hack'
+                'plugins/kibana-s4i-ng-plugin/init-hack',
+                'plugins/kibana-s4i-ng-plugin/style-hack'
             ]
         },
 
