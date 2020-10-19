@@ -1,18 +1,5 @@
 import $ from "jquery";
 
-/** Shamelessly stolen from:
- * https://stackoverflow.com/a/901144
- */
-export function getParameterByName(name: string, url?: string) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, '\\$&');
-    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-    const results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
 interface Definition {
     id: number;
     name?: string;
@@ -24,14 +11,15 @@ class NGAPI {
     private definitions?: Record<DefinitionType, Definition[]>;
 
     async init(): Promise<void> {
-        const baseUrl = getParameterByName('ng-url');
-        if (!baseUrl) {
+        const usp = new URLSearchParams(window.location.href);
+        const url = usp.get('ng-url');
+        if (!url) {
             throw new Error('No base URL provided');
         }
+        const baseUrl = new URL(url);
         const ajaxSettings: JQuery.AjaxSettings = {
             type: 'GET',
             dataType: 'json',
-
             accepts: { json: 'application/json' },
             xhrFields: {
                 withCredentials: true
@@ -39,9 +27,9 @@ class NGAPI {
         };
 
         const [docDefs, users, filters] = await Promise.all([
-            $.ajax(baseUrl + '/api/definitions', ajaxSettings),
-            $.ajax(baseUrl + '/api/definitions/users', ajaxSettings),
-            $.ajax(baseUrl + '/api/filters', ajaxSettings)
+            $.ajax(`${baseUrl.origin}/api/definitions${baseUrl.search}`, ajaxSettings),
+            $.ajax(`${baseUrl.origin}/api/definitions/users${baseUrl.search}`, ajaxSettings),
+            $.ajax(`${baseUrl.origin}/api/filters${baseUrl.search}`, ajaxSettings)
         ]);
 
         this.definitions = {docDefs, filters, users};
