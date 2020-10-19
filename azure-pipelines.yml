@@ -8,7 +8,7 @@ strategy:
   matrix:
     kibana_6_5_3:
       kibana_version: 6.5.3
-      node_version: 8.14.0
+      node_version: 12.19.0
 
 variables:
    build_version: $(kibana_version)-$(Build.BuildNumber)
