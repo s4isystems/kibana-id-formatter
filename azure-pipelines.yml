@@ -6,8 +6,8 @@ pool:
 
 strategy:
   matrix:
-    kibana_6_8_22:
-      kibana_version: 6.8.22
+    kibana_6_8_23:
+      kibana_version: 6.8.23
       node_version: 10.24.1
 
 variables:
